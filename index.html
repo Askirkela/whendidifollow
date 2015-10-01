@@ -18,7 +18,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="author" content="Luc Debene"/>
 
-	<title>When did I follow?</title>
+	<title>Home - When did I follow?</title>
 
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
@@ -26,60 +26,75 @@
 
 <body ng-app="TwitchFollowing">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">When Did I follow?</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="about.html">About</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">When Did I follow?</a>
       </div>
-    </nav>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
 
   <div id="container" ng-controller="FollowsController">
-		<div  class="jumbotron">
-			<div class="container">
-        <form name="usernameForm" ng-submit="getFollows(userName)">
-  				Enter your Twitch username : <input type="text" name="username" ng-model="userName">
-  				<input type="submit" value="Submit">
-  			</form>
-  			<br />
-  			<p>You are following <b id="total">{{ followsTotal }}</b> channels, here are your last 100 follows</p>
-      </div>
+		<div  class="jumbotron container">
+      <h1>When did I follow?</h1>
+      <form name="usernameForm" ng-submit="getFollows(userName)">
+				Enter your Twitch username: <input type="text" name="username" ng-model="userName">
+				<input type="submit" value="Submit">
+			</form>
     </div>
+  
     
-    <!-- Follows -->
-    <div class="container lead">
-				<div ng-repeat="c in followsData.follows" class="col-md-4 item" >
-					<div class="banner" style="background-image: url('{{ c.channel.profile_banner }}')"><img src="{{ c.channel.logo }}" alt="{{ c.channel.display_name }}"></img></div>
-					<div class="blackbg"><a href="{{ c.channel.url }}">{{ c.channel.display_name }}</a> since {{ c.created_at | date }}</div>
-			</div>
-    </div>
-
-    <!-- Followers -->
-    <div  class="jumbotron">
-      <div class="container">
-        <p><b id="total">{{ followersTotal }}</b> Twitch users are following you, here are your last 100 followers</p>
+    <div class=" container panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <!-- Follows -->
+            You are following <b>{{ followsTotal }}</b> channels, here are your last 100 follows
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse lead" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <div ng-repeat="c in followsData.follows" class="col-md-4 item" >
+      				<div class="banner" style="background-image: url('{{ c.channel.profile_banner }}')"><img src="{{ c.channel.logo }}" alt="{{ c.channel.display_name }}"></img></div>
+      				<div class="blackbg"><a href="{{ c.channel.url }}">{{ c.channel.display_name }}</a> since {{ c.created_at | date }}</div>
+      			</div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="container lead">
-      <div ng-repeat="c in followersData.follows" class="col-md-4 item blackbg" >
-        <img src="{{ c.user.logo }}" alt="{{ c.user.display_name }}"></img>
-        <a href="{{ c.channel.url }}">{{ c.user.display_name }}</a> since {{ c.created_at | date }}
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <!-- Followers -->
+              <b>{{ followersTotal }}</b> Twitch users are following you, here are your last 100 followers
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse lead" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            <div ng-repeat="c in followersData.follows" class="col-md-4 item blackbg" >
+              <img src="{{ c.user.logo }}" alt="{{ c.user.display_name }}"></img>
+              <a href="{{ c.channel.url }}">{{ c.user.display_name }}</a> since {{ c.created_at | date }}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
   <script src="app.js"></script>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
