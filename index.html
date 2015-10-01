@@ -58,9 +58,9 @@
     </div>
     
     <div class="container lead">
-				<div ng-repeat="c in follows.follows" class="col-md-6 item" style="background-image: url('{{ c.channel.profile_banner }}')">
-					<img src="{{ c.channel.logo }}" >
-					<a href="{{ c.channel.url }}">{{ c.channel.display_name }}</a> since {{ c.created_at | date }}
+				<div ng-repeat="c in follows.follows" class="col-md-4 item" >
+					<div class="banner" style="background-image: url('{{ c.channel.profile_banner }}')"><img src="{{ c.channel.logo }}" ></div>
+					<div class="blackbg"><a href="{{ c.channel.url }}">{{ c.channel.display_name }}</a> since {{ c.created_at | date }}</div>
 			</div>
     </div>
   </div>

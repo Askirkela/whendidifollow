@@ -1,6 +1,10 @@
 #container {
 	margin-top: 75px;
 }
+.blackbg {
+	background-color: #1a1a1a;
+	font-size: 0.8em;
+}
 .buttonCustom {
 	background-color: #1a1a1a !important;
 	border-radius: 5px;
@@ -9,6 +13,12 @@
 }
 .right {
 	float: right;
+}
+.banner {
+	height: 103px;
+	background-size: 80% 103px;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 .item {
 	background-color: #1a1a1a !important;
