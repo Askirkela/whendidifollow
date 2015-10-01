@@ -24,7 +24,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 </head>
 
-<body ng-app="TwitchFollowing" onload="check0()">
+<body ng-app="TwitchFollowing">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -53,15 +53,30 @@
   				<input type="submit" value="Submit">
   			</form>
   			<br />
-  			<p>You are following <b id="total">{{ total }}</b> channels, here are your last 100 follows</p>
+  			<p>You are following <b id="total">{{ followsTotal }}</b> channels, here are your last 100 follows</p>
       </div>
     </div>
     
+    <!-- Follows -->
     <div class="container lead">
-				<div ng-repeat="c in follows.follows" class="col-md-4 item" >
-					<div class="banner" style="background-image: url('{{ c.channel.profile_banner }}')"><img src="{{ c.channel.logo }}" ></div>
+				<div ng-repeat="c in followsData.follows" class="col-md-4 item" >
+					<div class="banner" style="background-image: url('{{ c.channel.profile_banner }}')"><img src="{{ c.channel.logo }}" alt="{{ c.channel.display_name }}"></img></div>
 					<div class="blackbg"><a href="{{ c.channel.url }}">{{ c.channel.display_name }}</a> since {{ c.created_at | date }}</div>
 			</div>
+    </div>
+
+    <!-- Followers -->
+    <div  class="jumbotron">
+      <div class="container">
+        <p><b id="total">{{ followersTotal }}</b> Twitch users are following you, here are your last 100 followers</p>
+      </div>
+    </div>
+
+    <div class="container lead">
+      <div ng-repeat="c in followersData.follows" class="col-md-4 item blackbg" >
+        <img src="{{ c.user.logo }}" alt="{{ c.user.display_name }}"></img>
+        <a href="{{ c.channel.url }}">{{ c.user.display_name }}</a> since {{ c.created_at | date }}
+      </div>
     </div>
   </div>
 
