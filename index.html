@@ -68,7 +68,7 @@
         <div id="collapseOne" class="panel-collapse collapse lead" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <div ng-repeat="c in followsData.follows" class="col-md-4 item" >
-      				<div class="banner" style="background-image: url('{{ c.channel.profile_banner }}')"><img src="{{ c.channel.logo }}" alt="{{ c.channel.display_name }}"></img></div>
+      				<div class="banner" style="background-image: url('{{ c.channel.profile_banner }}')"><img src="{{ c.channel.logo || 'imgs/questionMark.png' }}" alt="{{ c.channel.display_name }}"></img></div>
       				<div class="blackbg"><a href="{{ c.channel.url }}">{{ c.channel.display_name }}</a> since {{ c.created_at | date }}</div>
       			</div>
           </div>
@@ -87,7 +87,7 @@
         <div id="collapseTwo" class="panel-collapse collapse lead" role="tabpanel" aria-labelledby="headingTwo">
           <div class="panel-body">
             <div ng-repeat="c in followersData.follows" class="col-md-4 item blackbg" >
-              <img src="{{ c.user.logo }}" alt="{{ c.user.display_name }}"></img>
+              <img src="{{ c.user.logo || 'imgs/questionMark.png' }}" alt="{{ c.user.display_name }}"></img>
               <a href="{{ c.channel.url }}">{{ c.user.display_name }}</a> since {{ c.created_at | date }}
             </div>
           </div>
